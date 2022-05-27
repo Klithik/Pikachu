@@ -1,5 +1,4 @@
 from datetime import datetime
-from ntpath import join
 import os
 from os import path,mkdir
 import shutil
