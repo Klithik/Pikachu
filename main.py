@@ -106,7 +106,6 @@ def dibuja():
     print('__________________¶¶¶¶¶¶¶¶¶¶¶¶')
     print('_____________________¶¶¶¶¶¶')
 
-
 def pregunta():
     año = False
     mes = False
