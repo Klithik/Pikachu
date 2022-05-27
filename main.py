@@ -114,7 +114,7 @@ def pregunta():
     if(año):
         mes = preguntaMes()
     tipo = preguntaTipo()
-    
+
     origen = preguntaOrigen()
     destino = preguntaDestino()
     main(origen,destino,año,mes,tipo)
@@ -172,5 +172,3 @@ def preguntaTipo():
     else:
         print('Respuesta invalida')
         preguntaTipo()
-
-#/home/klithik/Imágenes/Capturas de pantalla
