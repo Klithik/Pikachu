@@ -114,11 +114,7 @@ def pregunta():
     if(año):
         mes = preguntaMes()
     tipo = preguntaTipo()
-    main(origen,destino,año,mes,tipo)
-    print('Elige direccion para organizar:')
-    direccion = input()
-    print('Elige donde poner los archivos ordenados por año:')
-    dirF = input()
+    
     origen = preguntaOrigen()
     destino = preguntaDestino()
     main(origen,destino,año,mes,tipo)
