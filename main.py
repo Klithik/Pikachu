@@ -32,31 +32,34 @@ def obtieneMes(target):
     fecha = datetime.fromtimestamp(fecha)
     return fecha.strftime('%m')
 
+def mueveTipo(rutaTarget,destino):
+    tipo = obtieneTipo(rutaTarget)
+    rutaDestino = path.join(destino,tipo)
+    if(not(verificaDir(rutaDestino))):
+        mkdir(rutaDestino)
+    shutil.move(rutaTarget,rutaDestino)
+
+def mueveAño(rutaTarget,destino):
+    año = obtieneTipo(rutaTarget)
+    rutaDestino = path.join(destino,año)
+    if(not(verificaDir(rutaDestino))):
+        mkdir(rutaDestino)
+    shutil.move(rutaTarget,rutaDestino)
+
+def mueveMes(rutaTarget,destino):
+    mes = obtieneTipo(rutaTarget)
+    rutaDestino = path.join(destino,mes)
+    if(not(verificaDir(rutaDestino))):
+        mkdir(rutaDestino)
+    shutil.move(rutaTarget,rutaDestino)
+
 def main(targetDir,destino,Ra,Rm,Rt):
     target = iniciaRevision(targetDir)
     for e in target:
         rutaTarget = path.join(targetDir,e)
-        if(Rt):
-            tipo = obtieneTipo(rutaTarget)
-            rutaDestino = path.join(destino,tipo)
-            if(not(verificaDir(rutaDestino))):
-                mkdir(rutaDestino)
-            if(Ra):
-                año = obtieneAño(rutaTarget)
-                rutaDestino = path.join(rutaDestino,año)
-                if(not(verificaDir(rutaDestino))):
-                    mkdir(rutaDestino)
-                if(Rm):
-                    mes = obtieneMes(rutaTarget)
-                    rutaDestino = path.join(rutaDestino,mes)
-                    if(not(verificaDir(rutaDestino))):
-                        mkdir(rutaDestino)
-                    shutil.move(rutaTarget,rutaDestino)
-            else:
-                shutil.move(rutaTarget,rutaDestino)
-        elif(Ra):
+        if(Ra):
             año = obtieneAño(rutaTarget)
-            rutaDestino = path.join(destino,año)
+            rutaDestino = path.join(rutaTarget,año)
             if(not(verificaDir(rutaDestino))):
                 mkdir(rutaDestino)
             if(Rm):
@@ -64,9 +67,20 @@ def main(targetDir,destino,Ra,Rm,Rt):
                 rutaDestino = path.join(rutaDestino,mes)
                 if(not(verificaDir(rutaDestino))):
                     mkdir(rutaDestino)
-                shutil.move(rutaTarget,rutaDestino)
+                if(Rt):
+                    tipo = obtieneTipo(rutaTarget)
+                    rutaDestino = path.join(rutaDestino,tipo)
+                    if(not(verificaDir(rutaDestino))):
+                        mkdir(rutaDestino)
+                    shutil.move(rutaTarget,rutaDestino)
             else:
                 shutil.move(rutaTarget,rutaDestino)
+        elif(Rt):
+            tipo = obtieneTipo(rutaTarget)
+            rutaDestino = path.join(rutaTarget,tipo)
+            if(not(verificaDir(rutaDestino))):
+                mkdir(rutaDestino)
+            shutil.move(rutaTarget,rutaDestino)
     print('Listo!')
     dibuja()
 
