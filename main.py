@@ -32,27 +32,6 @@ def obtieneMes(target):
     fecha = datetime.fromtimestamp(fecha)
     return fecha.strftime('%m')
 
-def mueveTipo(rutaTarget,destino):
-    tipo = obtieneTipo(rutaTarget)
-    rutaDestino = path.join(destino,tipo)
-    if(not(verificaDir(rutaDestino))):
-        mkdir(rutaDestino)
-    shutil.move(rutaTarget,rutaDestino)
-
-def mueveAño(rutaTarget,destino):
-    año = obtieneTipo(rutaTarget)
-    rutaDestino = path.join(destino,año)
-    if(not(verificaDir(rutaDestino))):
-        mkdir(rutaDestino)
-    shutil.move(rutaTarget,rutaDestino)
-
-def mueveMes(rutaTarget,destino):
-    mes = obtieneTipo(rutaTarget)
-    rutaDestino = path.join(destino,mes)
-    if(not(verificaDir(rutaDestino))):
-        mkdir(rutaDestino)
-    shutil.move(rutaTarget,rutaDestino)
-
 def main(targetDir,destino,Ra,Rm,Rt):
     target = iniciaRevision(targetDir)
     for e in target:
