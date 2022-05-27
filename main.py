@@ -38,7 +38,7 @@ def main(targetDir,destino,Ra,Rm,Rt):
         rutaTarget = path.join(targetDir,e)
         if(Ra):
             año = obtieneAño(rutaTarget)
-            rutaDestino = path.join(rutaTarget,año)
+            rutaDestino = path.join(destino,año)
             if(not(verificaDir(rutaDestino))):
                 mkdir(rutaDestino)
             if(Rm):
@@ -56,7 +56,7 @@ def main(targetDir,destino,Ra,Rm,Rt):
                 shutil.move(rutaTarget,rutaDestino)
         elif(Rt):
             tipo = obtieneTipo(rutaTarget)
-            rutaDestino = path.join(rutaTarget,tipo)
+            rutaDestino = path.join(destino,tipo)
             if(not(verificaDir(rutaDestino))):
                 mkdir(rutaDestino)
             shutil.move(rutaTarget,rutaDestino)
