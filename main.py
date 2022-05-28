@@ -51,15 +51,17 @@ def main(targetDir,destino,Ra,Rm,Rt):
                     rutaDestino = path.join(rutaDestino,tipo)
                     if(not(verificaDir(rutaDestino))):
                         mkdir(rutaDestino)
-                    shutil.move(rutaTarget,rutaDestino)
+                    shutil.move(rutaTarget,path.join(rutaDestino,e))
+                else:
+                    shutil.move(rutaTarget,path.join(rutaDestino,e))
             else:
-                shutil.move(rutaTarget,rutaDestino)
+                shutil.move(rutaTarget,path.join(rutaDestino,e))
         elif(Rt):
             tipo = obtieneTipo(rutaTarget)
             rutaDestino = path.join(destino,tipo)
             if(not(verificaDir(rutaDestino))):
                 mkdir(rutaDestino)
-            shutil.move(rutaTarget,rutaDestino)
+            shutil.move(rutaTarget,path.join(rutaDestino,e))
     print('Listo!')
     dibuja()
 
@@ -99,9 +101,6 @@ def dibuja():
     print('_____________________¶¶¶¶¶¶')
 
 def pregunta():
-    año = False
-    mes = False
-    tipo = False
     año = preguntaAño()
     if(año):
         mes = preguntaMes()
@@ -131,11 +130,10 @@ def preguntaDestino():
 
 def preguntaAño():
     print('Quieres organizar los archivos por año? (s/n)')
-    if(input()=='s'):
-        OrgAño = True
+    tmp = input()
+    if(tmp=='s'):
         return True
-    elif(input()=='n'):
-        OrgAño = False
+    elif(tmp=='n'):
         return False
     else:
         print('Respuesta invalida')
@@ -143,11 +141,10 @@ def preguntaAño():
 
 def preguntaMes():
     print('Quieres organizar los archivos por mes? (s/n)')
-    if(input()=='s'):
-        OrgMes = True
+    tmp = input()
+    if(tmp=='s'):
         return True
-    elif(input()=='n'):
-        OrgMes = False
+    elif(tmp=='n'):
         return False
     else:
         print('Respuesta invalida')
@@ -155,12 +152,13 @@ def preguntaMes():
 
 def preguntaTipo():
     print('Quieres organizar los archivos por tipo? (s/n)')
-    if(input()=='s'):
-        OrgTipo = True
+    tmp = input()
+    if(tmp=='s'):
         return True
-    elif(input()=='n'):
-        OrgTipo = False
+    elif(tmp=='n'):
         return False
     else:
         print('Respuesta invalida')
         preguntaTipo()
+
+pregunta()
