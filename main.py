@@ -51,17 +51,17 @@ def main(targetDir,destino,Ra,Rm,Rt):
                     rutaDestino = path.join(rutaDestino,tipo)
                     if(not(verificaDir(rutaDestino))):
                         mkdir(rutaDestino)
-                    shutil.move(rutaTarget,path.join(rutaDestino,e))
+                    shutil.move(rutaTarget,rutaDestino)
                 else:
-                    shutil.move(rutaTarget,path.join(rutaDestino,e))
+                    shutil.move(rutaTarget,rutaDestino)
             else:
-                shutil.move(rutaTarget,path.join(rutaDestino,e))
+                shutil.move(rutaTarget,rutaDestino)
         elif(Rt):
             tipo = obtieneTipo(rutaTarget)
             rutaDestino = path.join(destino,tipo)
             if(not(verificaDir(rutaDestino))):
                 mkdir(rutaDestino)
-            shutil.move(rutaTarget,path.join(rutaDestino,e))
+            shutil.move(rutaTarget,rutaDestino)
     print('Listo!')
     dibuja()
 
@@ -102,6 +102,7 @@ def dibuja():
 
 def pregunta():
     año = preguntaAño()
+    mes = False
     if(año):
         mes = preguntaMes()
     tipo = preguntaTipo()
