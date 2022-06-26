@@ -36,32 +36,33 @@ def main(targetDir,destino,Ra,Rm,Rt):
     target = iniciaRevision(targetDir)
     for e in target:
         rutaTarget = path.join(targetDir,e)
-        if(Ra):
-            año = obtieneAño(rutaTarget)
-            rutaDestino = path.join(destino,año)
-            if(not(verificaDir(rutaDestino))):
-                mkdir(rutaDestino)
-            if(Rm):
-                mes = obtieneMes(rutaTarget)
-                rutaDestino = path.join(rutaDestino,mes)
+        if path.isfile(rutaTarget):
+            if(Ra):
+                año = obtieneAño(rutaTarget)
+                rutaDestino = path.join(destino,año)
                 if(not(verificaDir(rutaDestino))):
                     mkdir(rutaDestino)
-                if(Rt):
-                    tipo = obtieneTipo(rutaTarget)
-                    rutaDestino = path.join(rutaDestino,tipo)
+                if(Rm):
+                    mes = obtieneMes(rutaTarget)
+                    rutaDestino = path.join(rutaDestino,mes)
                     if(not(verificaDir(rutaDestino))):
                         mkdir(rutaDestino)
-                    shutil.move(rutaTarget,rutaDestino)
+                    if(Rt):
+                        tipo = obtieneTipo(rutaTarget)
+                        rutaDestino = path.join(rutaDestino,tipo)
+                        if(not(verificaDir(rutaDestino))):
+                            mkdir(rutaDestino)
+                        shutil.move(rutaTarget,rutaDestino)
+                    else:
+                        shutil.move(rutaTarget,rutaDestino)
                 else:
                     shutil.move(rutaTarget,rutaDestino)
-            else:
+            elif(Rt):
+                tipo = obtieneTipo(rutaTarget)
+                rutaDestino = path.join(destino,tipo)
+                if(not(verificaDir(rutaDestino))):
+                    mkdir(rutaDestino)
                 shutil.move(rutaTarget,rutaDestino)
-        elif(Rt):
-            tipo = obtieneTipo(rutaTarget)
-            rutaDestino = path.join(destino,tipo)
-            if(not(verificaDir(rutaDestino))):
-                mkdir(rutaDestino)
-            shutil.move(rutaTarget,rutaDestino)
     print('Listo!')
 
 def pregunta():
