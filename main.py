@@ -36,28 +36,29 @@ def main(targetDir,destino,Ra,Rm,Rt):
     target = iniciaRevision(targetDir)
     for e in target:
         rutaTarget = path.join(targetDir,e)
-        if path.isfile(rutaTarget):
-            if(Ra):
-                año = obtieneAño(rutaTarget)
-                rutaDestino = path.join(destino,año)
+        if(Ra):
+            año = obtieneAño(rutaTarget)
+            rutaDestino = path.join(destino,año)
+            if(not(verificaDir(rutaDestino))):
+                mkdir(rutaDestino)
+            if(Rm):
+                mes = obtieneMes(rutaTarget)
+                rutaDestino = path.join(rutaDestino,mes)
                 if(not(verificaDir(rutaDestino))):
                     mkdir(rutaDestino)
-                if(Rm):
-                    mes = obtieneMes(rutaTarget)
-                    rutaDestino = path.join(rutaDestino,mes)
-                    if(not(verificaDir(rutaDestino))):
-                        mkdir(rutaDestino)
-                    if(Rt):
+                if(Rt):
+                    if path.isfile(rutaTarget):
                         tipo = obtieneTipo(rutaTarget)
                         rutaDestino = path.join(rutaDestino,tipo)
                         if(not(verificaDir(rutaDestino))):
                             mkdir(rutaDestino)
                         shutil.move(rutaTarget,rutaDestino)
-                    else:
-                        shutil.move(rutaTarget,rutaDestino)
                 else:
                     shutil.move(rutaTarget,rutaDestino)
-            elif(Rt):
+            else:
+                shutil.move(rutaTarget,rutaDestino)
+        elif(Rt):
+            if path.isfile(rutaTarget):
                 tipo = obtieneTipo(rutaTarget)
                 rutaDestino = path.join(destino,tipo)
                 if(not(verificaDir(rutaDestino))):
