@@ -20,7 +20,7 @@ def mueveArchivo(old,new):
     return False
 
 def obtieneTipo(target):
-    return path.splitext(target)[1]
+    return path.splitext(target)[1][1:]
 
 def obtieneAño(target):
     fecha = os.path.getmtime(target)
