@@ -1,3 +1,6 @@
+import agrupa
+import busca
+
 opciones = {
     1:'1',
     2:'2',
@@ -19,3 +22,10 @@ print('[2] Buscar un archivo o directorio')
 print('[3] Sacar todos los archivos de una carpeta')
 eleccion = input()
 revisaRespuesta(eleccion)
+
+if eleccion == '1':
+    agrupa.pregunta()
+elif eleccion == '2':
+    busca.inicia()
+elif eleccion == '3':
+    print('NO IMPLEMENTADO')

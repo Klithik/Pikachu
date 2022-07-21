@@ -24,15 +24,16 @@ def preguntaRuta():
     print('Ruta no valida')
     preguntaRuta()
 
-ruta = preguntaRuta()
-print('Nombre de archivo o carpeta a buscar: ')
-target = input()
+def inicia():
+    ruta = preguntaRuta()
+    print('Nombre de archivo o carpeta a buscar: ')
+    target = input()
 
-print('==BUSCANDO==')
-revisaDir(ruta)
+    print('==BUSCANDO==')
+    revisaDir(ruta)
 
-if resultados:
-    for e in resultados:
-        print(e)
-else:
-    print('No encontrado :c')
+    if resultados:
+        for e in resultados:
+            print(e)
+    else:
+        print('No encontrado :c')
