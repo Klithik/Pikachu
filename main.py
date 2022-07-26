@@ -1,5 +1,6 @@
 import agrupa
 import busca
+import separa
 
 opciones = {
     1:'1',
@@ -28,4 +29,4 @@ if eleccion == '1':
 elif eleccion == '2':
     busca.inicia()
 elif eleccion == '3':
-    print('NO IMPLEMENTADO')
+    separa.inicia()
