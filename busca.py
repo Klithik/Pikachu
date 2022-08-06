@@ -33,6 +33,7 @@ def inicia():
     revisaDir(ruta,target)
 
     if resultados:
+        print('RESULTADOS: ')
         for e in resultados:
             print(e)
     else:
