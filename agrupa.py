@@ -33,19 +33,27 @@ def obtieneMes(target):
     return fecha.strftime('%m')
 
 def main(targetDir,destino,Ra,Rm,Rt):
+    #SELECT A TARGET AND VERIFY ITS PROPERTIES
     target = iniciaRevision(targetDir)
+    #ITERATE TROUGH FILES AND DIRECTORIES IN THE TARGET
     for e in target:
+        #OBTAIN THE PATH OF THE CURRENT SUB TARGET
         rutaTarget = path.join(targetDir,e)
+        #CHECK IF THE USER WANTED TO CLASIFY ITEMS BASED ON YEAR
         if(Ra):
+            #OBTAIN YEAR
             año = obtieneAño(rutaTarget)
+            #CHECK THE PATH OF THE YEAR FOLDER, IF IT DOESNT EXIST, CREATES IT
             rutaDestino = path.join(destino,año)
             if(not(verificaDir(rutaDestino))):
                 mkdir(rutaDestino)
+            #CHECK IF THE USER WANTED TO CLASIFY ITEMS BASED ON MONTH
             if(Rm):
                 mes = obtieneMes(rutaTarget)
                 rutaDestino = path.join(rutaDestino,mes)
                 if(not(verificaDir(rutaDestino))):
                     mkdir(rutaDestino)
+                #CHECK IF THE USER WANTED TO CLASIFY ITEMS BASED ON TYPE
                 if(Rt):
                     if path.isfile(rutaTarget):
                         tipo = obtieneTipo(rutaTarget)
@@ -57,6 +65,7 @@ def main(targetDir,destino,Ra,Rm,Rt):
                     shutil.move(rutaTarget,rutaDestino)
             else:
                 shutil.move(rutaTarget,rutaDestino)
+        #CHECK IF THE USER WANTED TO CLASIFY ITEMS BASED ON TYPE
         elif(Rt):
             if path.isfile(rutaTarget):
                 tipo = obtieneTipo(rutaTarget)
@@ -66,7 +75,7 @@ def main(targetDir,destino,Ra,Rm,Rt):
                 shutil.move(rutaTarget,rutaDestino)
     print('Listo!')
 
-def pregunta():
+def main():
     año = preguntaAño()
     mes = False
     if(año):
@@ -128,4 +137,4 @@ def preguntaTipo():
         print('Respuesta invalida')
         preguntaTipo()
 
-pregunta()
+main()
