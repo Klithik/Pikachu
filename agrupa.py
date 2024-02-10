@@ -32,7 +32,7 @@ def obtieneMes(target):
     fecha = datetime.fromtimestamp(fecha)
     return fecha.strftime('%m')
 
-def main(targetDir,destino,Ra,Rm,Rt):
+def ordena(targetDir,destino,Ra,Rm,Rt):
     #SELECT A TARGET AND VERIFY ITS PROPERTIES
     target = iniciaRevision(targetDir)
     #ITERATE TROUGH FILES AND DIRECTORIES IN THE TARGET
@@ -75,37 +75,33 @@ def main(targetDir,destino,Ra,Rm,Rt):
                 shutil.move(rutaTarget,rutaDestino)
     print('Listo!')
 
-def main():
-    año = preguntaAño()
+def inicia():
+    print('Quieres ordenar por año?:')
+    año = preguntaOpcion()
     mes = False
     if(año):
-        mes = preguntaMes()
-    tipo = preguntaTipo()
+        print('Quieres ordenar por mes?:')
+        mes = preguntaOpcion()
+    print('Quieres ordenar por tipo?:')
+    tipo = preguntaOpcion()
+    
+    print('===Ingresa ruta de origen===')
+    origen = verificaRuta()
+    print('===Ingresa ruta de destino===')
+    destino = verificaRuta()
+    ordena(origen,destino,año,mes,tipo)
 
-    origen = preguntaOrigen()
-    destino = preguntaDestino()
-    main(origen,destino,año,mes,tipo)
-
-def preguntaOrigen():
-    print('Elige el directorio a organizar')
+def verificaRuta():
+    print('Respuesta...:')
     tmp = input()
     if(verificaDir(tmp)):
         return tmp
     else:
-        print('Ruta invalida')
-        preguntaOrigen()
+        print('Ruta invalida, ingresa otra')
+        verificaRuta()
 
-def preguntaDestino():
-    print('Elige el directorio a donde mover los archivos')
-    tmp = input()
-    if(verificaDir(tmp)):
-        return tmp
-    else:
-        print('Ruta invalida')
-        preguntaDestino()
-
-def preguntaAño():
-    print('Quieres organizar los archivos por año? (s/n)')
+def preguntaOpcion():
+    print('Respuesta...:')
     tmp = input()
     if(tmp=='s'):
         return True
@@ -113,28 +109,4 @@ def preguntaAño():
         return False
     else:
         print('Respuesta invalida')
-        preguntaAño()
-
-def preguntaMes():
-    print('Quieres organizar los archivos por mes? (s/n)')
-    tmp = input()
-    if(tmp=='s'):
-        return True
-    elif(tmp=='n'):
-        return False
-    else:
-        print('Respuesta invalida')
-        preguntaMes()
-
-def preguntaTipo():
-    print('Quieres organizar los archivos por tipo? (s/n)')
-    tmp = input()
-    if(tmp=='s'):
-        return True
-    elif(tmp=='n'):
-        return False
-    else:
-        print('Respuesta invalida')
-        preguntaTipo()
-
-main()
+        preguntaOpcion()
