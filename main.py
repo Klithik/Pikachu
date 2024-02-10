@@ -1,5 +1,4 @@
 import agrupa
-import busca
 import separa
 
 opciones = {
