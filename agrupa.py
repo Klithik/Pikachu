@@ -59,6 +59,10 @@ def ordena(targetDir,destino,Ra,Rm,Rt):
                 creaFaltante(rutaDestino)
                 shutil.move(rutaTarget,rutaDestino)
     print('Listo!')
+
+def mueve(origen,destino):
+    shutil.move(origen,destino)
+
 def ordena2(targetDir,destino,Ra,Rm,Rt):
     target = iniciaRevision(targetDir)
     if not(target):
@@ -66,6 +70,25 @@ def ordena2(targetDir,destino,Ra,Rm,Rt):
         exit()
     for e in target:
         rutaTarget = path.join(targetDir,e)
+        if(Ra):
+            año = obtieneAño(rutaTarget)
+            rutaDestino = path.join(destino,año)
+            creaFaltante(rutaDestino)
+            if(Rm):
+                mes = obtieneMes(rutaTarget)
+                rutaDestino = path.join(rutaDestino,mes)
+                creaFaltante(rutaDestino)
+                if(Rt):
+                    if not(path.isfile(rutaTarget)):
+                        continue
+                    tipo = obtieneTipo(rutaTarget)
+                    rutaDestino = path.join(rutaDestino,tipo)
+                    creaFaltante(rutaDestino)
+                    mueve(rutaTarget,rutaDestino)
+                else:
+                    mueve(rutaTarget,rutaDestino)
+            else:
+                mueve(rutaTarget,rutaDestino)
 def inicia():
     print('Quieres ordenar por año?:')
     año = preguntaOpcion()
