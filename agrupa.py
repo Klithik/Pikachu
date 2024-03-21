@@ -10,6 +10,10 @@ def iniciaRevision(target):
         return False
     return os.listdir(target)
 
+def creaFaltante(target):
+    if not(path.exists(target)):
+        os.mkdir(target)
+
 def obtieneTipo(target):
     return path.splitext(target)[1][1:]
 
@@ -33,19 +37,16 @@ def ordena(targetDir,destino,Ra,Rm,Rt):
         if(Ra):
             año = obtieneAño(rutaTarget)
             rutaDestino = path.join(destino,año)
-            if not(os.path.exists(rutaDestino)):
-                mkdir(rutaDestino)
+            creaFaltante(rutaDestino)
             if(Rm):
                 mes = obtieneMes(rutaTarget)
                 rutaDestino = path.join(rutaDestino,mes)
-                if not(os.path.exists(rutaDestino)):
-                    mkdir(rutaDestino)
+                creaFaltante(rutaDestino)
                 if(Rt):
                     if path.isfile(rutaTarget):
                         tipo = obtieneTipo(rutaTarget)
                         rutaDestino = path.join(rutaDestino,tipo)
-                        if not(os.path.exists(rutaDestino)):
-                            mkdir(rutaDestino)
+                        creaFaltante(rutaDestino)
                         shutil.move(rutaTarget,rutaDestino)
                 else:
                     shutil.move(rutaTarget,rutaDestino)
@@ -55,8 +56,7 @@ def ordena(targetDir,destino,Ra,Rm,Rt):
             if path.isfile(rutaTarget):
                 tipo = obtieneTipo(rutaTarget)
                 rutaDestino = path.join(destino,tipo)
-                if not(os.path.exists(rutaDestino)):
-                    mkdir(rutaDestino)
+                creaFaltante(rutaDestino)
                 shutil.move(rutaTarget,rutaDestino)
     print('Listo!')
 def ordena2(targetDir,destino,Ra,Rm,Rt):
