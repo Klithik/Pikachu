@@ -4,21 +4,11 @@ from os import path,mkdir
 import shutil
 
 def iniciaRevision(target):
-    if(verificaDir(target)):
-        return os.listdir(target)
-    return False
-
-def verificaDir(target):
-    if(path.exists(target)):
-        if(path.isdir(target)):
-            return True
-    print('Este directorio no es valido')
-    return False
-
-def mueveArchivo(old,new):
-    if(os.replace(old,new)):
-        return True
-    return False
+    if not(path.exists(target)):
+        return False
+    if not(path.isdir(target)):
+        return False
+    return os.listdir(target)
 
 def obtieneTipo(target):
     return path.splitext(target)[1][1:]
@@ -35,7 +25,7 @@ def obtieneMes(target):
 
 def ordena(targetDir,destino,Ra,Rm,Rt):
     target = iniciaRevision(targetDir)
-    if(not(target)):
+    if not(target):
         print('Directorio vacio')
         exit()
     for e in target:
@@ -43,18 +33,18 @@ def ordena(targetDir,destino,Ra,Rm,Rt):
         if(Ra):
             año = obtieneAño(rutaTarget)
             rutaDestino = path.join(destino,año)
-            if(not(verificaDir(rutaDestino))):
+            if not(os.path.exists(rutaDestino)):
                 mkdir(rutaDestino)
             if(Rm):
                 mes = obtieneMes(rutaTarget)
                 rutaDestino = path.join(rutaDestino,mes)
-                if(not(verificaDir(rutaDestino))):
+                if not(os.path.exists(rutaDestino)):
                     mkdir(rutaDestino)
                 if(Rt):
                     if path.isfile(rutaTarget):
                         tipo = obtieneTipo(rutaTarget)
                         rutaDestino = path.join(rutaDestino,tipo)
-                        if(not(verificaDir(rutaDestino))):
+                        if not(os.path.exists(rutaDestino)):
                             mkdir(rutaDestino)
                         shutil.move(rutaTarget,rutaDestino)
                 else:
@@ -65,11 +55,17 @@ def ordena(targetDir,destino,Ra,Rm,Rt):
             if path.isfile(rutaTarget):
                 tipo = obtieneTipo(rutaTarget)
                 rutaDestino = path.join(destino,tipo)
-                if(not(verificaDir(rutaDestino))):
+                if not(os.path.exists(rutaDestino)):
                     mkdir(rutaDestino)
                 shutil.move(rutaTarget,rutaDestino)
     print('Listo!')
-
+def ordena2(targetDir,destino,Ra,Rm,Rt):
+    target = iniciaRevision(targetDir)
+    if not(target):
+        print('Directorio vacio')
+        exit()
+    for e in target:
+        rutaTarget = path.join(targetDir,e)
 def inicia():
     print('Quieres ordenar por año?:')
     año = preguntaOpcion()
@@ -89,9 +85,8 @@ def inicia():
 def verificaRuta():
     print('Respuesta...:')
     tmp = input()
-    if(not(verificaDir(tmp))):
+    if not(iniciaRevision(tmp)):
         print('Intentalo de nuevo')
-        verificaRuta()
     return tmp
 
 def preguntaOpcion():
