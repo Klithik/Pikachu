@@ -1,7 +1,6 @@
 from datetime import datetime
 import os
 from os import path
-from posixpath import isfile
 import shutil
 
 def iniciaRevision(target):
