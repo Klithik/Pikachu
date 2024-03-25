@@ -34,8 +34,6 @@ def ordena(targetDir,destino,Ra,Rm,Rt):
         exit()
     for e in target:
         rutaTarget = path.join(targetDir,e)
-        if not(path.isfile(rutaTarget)):
-            continue
         if(Ra):
             año = obtieneAño(rutaTarget)
             rutaDestino = path.join(destino,año)
@@ -55,6 +53,8 @@ def ordena(targetDir,destino,Ra,Rm,Rt):
             else:
                 shutil.move(rutaTarget,rutaDestino)
         elif(Rt):
+            if not(path.isfile(rutaTarget)):
+                continue
             tipo = obtieneTipo(rutaTarget)
             rutaDestino = path.join(destino,tipo)
             creaFaltante(rutaDestino)
