@@ -1,6 +1,6 @@
 from datetime import datetime
 import os
-from os import path,mkdir
+from os import path
 import shutil
 
 def iniciaRevision(target):
