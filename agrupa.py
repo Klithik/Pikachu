@@ -1,6 +1,7 @@
 from datetime import datetime
 import os
 from os import path
+from posixpath import isfile
 import shutil
 
 def iniciaRevision(target):
@@ -34,6 +35,8 @@ def ordena(targetDir,destino,Ra,Rm,Rt):
         exit()
     for e in target:
         rutaTarget = path.join(targetDir,e)
+        if not(path.isfile(rutaTarget)):
+            continue
         if(Ra):
             año = obtieneAño(rutaTarget)
             rutaDestino = path.join(destino,año)
@@ -53,11 +56,10 @@ def ordena(targetDir,destino,Ra,Rm,Rt):
             else:
                 shutil.move(rutaTarget,rutaDestino)
         elif(Rt):
-            if path.isfile(rutaTarget):
-                tipo = obtieneTipo(rutaTarget)
-                rutaDestino = path.join(destino,tipo)
-                creaFaltante(rutaDestino)
-                shutil.move(rutaTarget,rutaDestino)
+            tipo = obtieneTipo(rutaTarget)
+            rutaDestino = path.join(destino,tipo)
+            creaFaltante(rutaDestino)
+            shutil.move(rutaTarget,rutaDestino)
     print('Listo!')
 
 def mueve(origen,destino):
