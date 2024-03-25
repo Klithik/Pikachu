@@ -10,7 +10,7 @@ def revisaDir(ruta):
 
 def separa(origen,destino):
     lista = revisaDir(origen)
-    if(not(lista)):
+    if not(lista):
         print('Directorio vacio')
         exit()
     for e in lista:
