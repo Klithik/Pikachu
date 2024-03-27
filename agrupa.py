@@ -1,21 +1,20 @@
 from datetime import datetime
 import os
-from os import path
 import shutil
 
 def iniciaRevision(target):
-    if not(path.exists(target)):
+    if not(os.path.exists(target)):
         return False
-    if not(path.isdir(target)):
+    if not(os.path.isdir(target)):
         return False
     return os.listdir(target)
 
 def creaFaltante(target):
-    if not(path.exists(target)):
+    if not(os.path.exists(target)):
         os.mkdir(target)
 
 def obtieneTipo(target):
-    return path.splitext(target)[1][1:]
+    return os.path.splitext(target)[1][1:]
 
 def obtieneAño(target):
     fecha = os.path.getmtime(target)
@@ -33,25 +32,25 @@ def ordena(targetDir,destino,Ra,Rm,Rt):
         print('Directorio vacio')
         exit()
     for e in target:
-        rutaTarget = path.join(targetDir,e)
+        rutaTarget = os.path.join(targetDir,e)
         if(Ra):
             año = obtieneAño(rutaTarget)
-            rutaDestino = path.join(destino,año)
+            rutaDestino = os.path.join(destino,año)
             creaFaltante(rutaDestino)
             if(Rm):
                 mes = obtieneMes(rutaTarget)
-                rutaDestino = path.join(rutaDestino,mes)
+                rutaDestino = os.path.join(rutaDestino,mes)
                 creaFaltante(rutaDestino)
                 if(Rt):
-                    if path.isfile(rutaTarget):
+                    if os.path.isfile(rutaTarget):
                         tipo = obtieneTipo(rutaTarget)
-                        rutaDestino = path.join(rutaDestino,tipo)
+                        rutaDestino = os.path.join(rutaDestino,tipo)
                         creaFaltante(rutaDestino)
         elif(Rt):
-            if not(path.isfile(rutaTarget)):
+            if not(os.path.isfile(rutaTarget)):
                 continue
             tipo = obtieneTipo(rutaTarget)
-            rutaDestino = path.join(destino,tipo)
+            rutaDestino = os.path.join(destino,tipo)
             creaFaltante(rutaDestino)
         # REVISA QUE AL MENOS UNA SELECCION
         # SEA VERDADERA ANTES DE INTENTAR MOVER EL ARCHIVO
