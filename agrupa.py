@@ -47,18 +47,18 @@ def ordena(targetDir,destino,Ra,Rm,Rt):
                         tipo = obtieneTipo(rutaTarget)
                         rutaDestino = path.join(rutaDestino,tipo)
                         creaFaltante(rutaDestino)
-                        shutil.move(rutaTarget,rutaDestino)
-                else:
-                    shutil.move(rutaTarget,rutaDestino)
-            else:
-                shutil.move(rutaTarget,rutaDestino)
         elif(Rt):
             if not(path.isfile(rutaTarget)):
                 continue
             tipo = obtieneTipo(rutaTarget)
             rutaDestino = path.join(destino,tipo)
             creaFaltante(rutaDestino)
+        # REVISA QUE AL MENOS UNA SELECCION
+        # SEA VERDADERA ANTES DE INTENTAR MOVER EL ARCHIVO
+        try:
             shutil.move(rutaTarget,rutaDestino)
+        except NameError:
+            break
     print('Listo!')
 
 def mueve(origen,destino):
