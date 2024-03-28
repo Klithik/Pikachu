@@ -1,98 +1,134 @@
-from datetime import datetime
 import os
 import shutil
+from datetime import datetime
+from typing import List, Union
 
-def iniciaRevision(target):
-    if not(os.path.exists(target)):
+
+def iniciaRevision(target) :
+    """
+    esta funcion sirve para chupar pene
+    """
+    if not (os.path.exists(target)):
         return False
-    if not(os.path.isdir(target)):
+    if not (os.path.isdir(target)):
         return False
     return os.listdir(target)
 
+
 def creaFaltante(target):
-    if not(os.path.exists(target)):
+    if not (os.path.exists(target)):
         os.mkdir(target)
+
 
 def obtieneTipo(target):
     return os.path.splitext(target)[1][1:]
 
+
 def obtieneAño(target):
     fecha = os.path.getmtime(target)
     fecha = datetime.fromtimestamp(fecha)
-    return fecha.strftime('%Y')
+    return fecha.strftime("%Y")
+
 
 def obtieneMes(target):
     fecha = os.path.getmtime(target)
     fecha = datetime.fromtimestamp(fecha)
-    return fecha.strftime('%m')
+    return fecha.strftime("%m")
 
-def ordena(targetDir,destino,Ra,Rm,Rt):
+
+def ordena(targetDir, destino, Ra, Rm, Rt):
     target = iniciaRevision(targetDir)
-    if not(target):
-        print('Directorio vacio')
+    if not (target):
+        print("Directorio vacio")
         exit()
     for e in target:
-        rutaTarget = os.path.join(targetDir,e)
-        if(Ra):
+        rutaTarget = os.path.join(targetDir, e)
+        if Ra:
             año = obtieneAño(rutaTarget)
-            rutaDestino = os.path.join(destino,año)
+            rutaDestino = os.path.join(destino, año)
             creaFaltante(rutaDestino)
-            if(Rm):
+            if Rm:
                 mes = obtieneMes(rutaTarget)
-                rutaDestino = os.path.join(rutaDestino,mes)
+                rutaDestino = os.path.join(rutaDestino, mes)
                 creaFaltante(rutaDestino)
-                if(Rt):
+                if Rt:
                     if os.path.isfile(rutaTarget):
                         tipo = obtieneTipo(rutaTarget)
-                        rutaDestino = os.path.join(rutaDestino,tipo)
+                        rutaDestino = os.path.join(rutaDestino, tipo)
                         creaFaltante(rutaDestino)
-        elif(Rt):
-            if not(os.path.isfile(rutaTarget)):
+        elif Rt:
+            if not (os.path.isfile(rutaTarget)):
                 continue
             tipo = obtieneTipo(rutaTarget)
-            rutaDestino = os.path.join(destino,tipo)
+            rutaDestino = os.path.join(destino, tipo)
             creaFaltante(rutaDestino)
-        # REVISA QUE AL MENOS UNA SELECCION
-        # SEA VERDADERA ANTES DE INTENTAR MOVER EL ARCHIVO
-        try:
-            shutil.move(rutaTarget,rutaDestino)
-        except NameError:
-            break
-    print('Listo!')
+        else:
+            continue
+        shutil.move(rutaTarget, rutaDestino)
+    print("Listo!")
 
-def mueve(origen,destino):
-    shutil.move(origen,destino)
+def ordena2(targetDir, destino, Ra, Rm, Rt):
+    target = iniciaRevision(targetDir)
+    if not (target):
+        print("Directorio vacio")
+        exit()
+    for e in target:
+        rutaTarget = os.path.join(targetDir, e)
+        rutaDestino = destino
+        if Ra:
+            año = obtieneAño(rutaTarget)
+            rutaDestino = os.path.join(rutaDestino, año)
+            creaFaltante(rutaDestino)
+        if Rt:
+            if not (os.path.isfile(rutaTarget)):
+                continue
+            tipo = obtieneTipo(rutaTarget)
+            rutaDestino = os.path.join(rutaDestino, tipo)
+            creaFaltante(rutaDestino)
+        if Rm:
+            mes = obtieneMes(rutaTarget)
+            rutaDestino = os.path.join(rutaDestino, mes)
+            creaFaltante(rutaDestino)
+        if rutaDestino != destino:
+            shutil.move(rutaTarget, rutaDestino)
+
+
+def mueve(origen, destino):
+    shutil.move(origen, destino)
+
 
 def inicia():
-    print('Quieres ordenar por año?:')
+    print("Quieres ordenar por año?:")
     año = preguntaOpcion()
     mes = False
-    if(año):
-        print('Quieres ordenar por mes?:')
+    if año:
+        print("Quieres ordenar por mes?:")
         mes = preguntaOpcion()
-    print('Quieres ordenar por tipo?:')
+    print("Quieres ordenar por tipo?:")
     tipo = preguntaOpcion()
-    
-    print('===Ingresa ruta de origen===')
+
+    print("===Ingresa ruta de origen===")
     origen = verificaRuta()
-    print('===Ingresa ruta de destino===')
+    print("===Ingresa ruta de destino===")
     destino = verificaRuta()
-    ordena(origen,destino,año,mes,tipo)
+    ordena2(origen, destino, año, mes, tipo)
+
 
 def verificaRuta():
-    print('Respuesta...:')
+    print("Respuesta...:")
     tmp = input()
-    if not(iniciaRevision(tmp)):
-        print('Intentalo de nuevo')
+    if not (iniciaRevision(tmp)):
+        print("Intentalo de nuevo")
     return tmp
 
+
 def preguntaOpcion():
-    print('(s/n)')
+    print("(s/n)")
     tmp = input()
-    if(tmp=='s'):
+    if tmp == "s":
         return True
-    elif(tmp=='n'):
+    elif tmp == "n":
         return False
     else:
-        print('Respuesta invalida')
+        print("Respuesta invalida")
         preguntaOpcion()
