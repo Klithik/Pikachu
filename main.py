@@ -24,10 +24,9 @@ print('[3] Salir')
 eleccion = input()
 revisaRespuesta(eleccion)
 
-while(True):
-    if eleccion == '1':
-        agrupa.inicia()
-    elif eleccion == '2':
-        separa.inicio()
-    elif eleccion == '3':
-        exit()
+if eleccion == '1':
+    agrupa.inicia()
+elif eleccion == '2':
+    separa.inicio()
+elif eleccion == '3':
+    exit()
