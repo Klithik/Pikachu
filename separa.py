@@ -2,11 +2,13 @@ import shutil
 import os
 
 def revisaDir(ruta):
-    if os.path.exists(ruta):
-        if os.path.isdir(ruta):
-            return os.listdir(ruta)
-    print('Ruta no valida')
-    return False
+    if not(os.path.exists(ruta)):
+        print('Ruta no valida')
+        return False
+    if not(os.path.isdir(ruta)):
+        print('Ruta no valida')
+        return False
+    return os.listdir(ruta)
 
 def separa(origen,destino):
     lista = revisaDir(origen)
@@ -20,6 +22,7 @@ def separa(origen,destino):
         else:
             source = os.path.join(origen,e)
             separa(source,destino)
+            os.removedirs(source)
 
 def preguntaRuta():
     ruta = input()

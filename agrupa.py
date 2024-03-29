@@ -1,73 +1,32 @@
 import os
 import shutil
 from datetime import datetime
-from typing import List, Union
 
-
-def iniciaRevision(target) :
-    """
-    esta funcion sirve para chupar pene
-    """
+def iniciaRevision(target):
     if not (os.path.exists(target)):
         return False
     if not (os.path.isdir(target)):
         return False
     return os.listdir(target)
 
-
 def creaFaltante(target):
     if not (os.path.exists(target)):
         os.mkdir(target)
 
-
 def obtieneTipo(target):
     return os.path.splitext(target)[1][1:]
-
 
 def obtieneAño(target):
     fecha = os.path.getmtime(target)
     fecha = datetime.fromtimestamp(fecha)
     return fecha.strftime("%Y")
 
-
 def obtieneMes(target):
     fecha = os.path.getmtime(target)
     fecha = datetime.fromtimestamp(fecha)
     return fecha.strftime("%m")
 
-
 def ordena(targetDir, destino, Ra, Rm, Rt):
-    target = iniciaRevision(targetDir)
-    if not (target):
-        print("Directorio vacio")
-        exit()
-    for e in target:
-        rutaTarget = os.path.join(targetDir, e)
-        if Ra:
-            año = obtieneAño(rutaTarget)
-            rutaDestino = os.path.join(destino, año)
-            creaFaltante(rutaDestino)
-            if Rm:
-                mes = obtieneMes(rutaTarget)
-                rutaDestino = os.path.join(rutaDestino, mes)
-                creaFaltante(rutaDestino)
-                if Rt:
-                    if os.path.isfile(rutaTarget):
-                        tipo = obtieneTipo(rutaTarget)
-                        rutaDestino = os.path.join(rutaDestino, tipo)
-                        creaFaltante(rutaDestino)
-        elif Rt:
-            if not (os.path.isfile(rutaTarget)):
-                continue
-            tipo = obtieneTipo(rutaTarget)
-            rutaDestino = os.path.join(destino, tipo)
-            creaFaltante(rutaDestino)
-        else:
-            continue
-        shutil.move(rutaTarget, rutaDestino)
-    print("Listo!")
-
-def ordena2(targetDir, destino, Ra, Rm, Rt):
     target = iniciaRevision(targetDir)
     if not (target):
         print("Directorio vacio")
@@ -92,10 +51,8 @@ def ordena2(targetDir, destino, Ra, Rm, Rt):
         if rutaDestino != destino:
             shutil.move(rutaTarget, rutaDestino)
 
-
 def mueve(origen, destino):
     shutil.move(origen, destino)
-
 
 def inicia():
     print("Quieres ordenar por año?:")
@@ -111,8 +68,7 @@ def inicia():
     origen = verificaRuta()
     print("===Ingresa ruta de destino===")
     destino = verificaRuta()
-    ordena2(origen, destino, año, mes, tipo)
-
+    ordena(origen, destino, año, mes, tipo)
 
 def verificaRuta():
     print("Respuesta...:")
@@ -120,7 +76,6 @@ def verificaRuta():
     if not (iniciaRevision(tmp)):
         print("Intentalo de nuevo")
     return tmp
-
 
 def preguntaOpcion():
     print("(s/n)")
