@@ -2,21 +2,21 @@ import os
 import shutil
 from datetime import datetime
 
-def iniciaRevision(target):
+def iniciaRevision(target:str):
     if not (os.path.exists(target)):
         return False
     if not (os.path.isdir(target)):
         return False
     return os.listdir(target)
 
-def creaFaltante(target):
+def creaFaltante(target:str):
     if not (os.path.exists(target)):
         os.mkdir(target)
 
-def obtieneTipo(target):
+def obtieneTipo(target:str):
     return os.path.splitext(target)[1][1:]
 
-def obtieneAño(target):
+def obtieneAño(target:str) -> str:
     fecha = os.path.getmtime(target)
     fecha = datetime.fromtimestamp(fecha)
     return fecha.strftime("%Y")
@@ -51,7 +51,7 @@ def ordena(targetDir, destino, Ra, Rm, Rt):
         if rutaDestino != destino:
             shutil.move(rutaTarget, rutaDestino)
 
-def mueve(origen, destino):
+def mueve(origen:str, destino:str):
     shutil.move(origen, destino)
 
 def inicia():
