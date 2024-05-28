@@ -49,6 +49,7 @@ def ordena(targetDir, destino, Ra, Rm, Rt):
             rutaDestino = os.path.join(rutaDestino, mes)
             creaFaltante(rutaDestino)
         if rutaDestino != destino:
+            rutaDestino = os.path.join(rutaDestino,e)
             shutil.move(rutaTarget, rutaDestino)
 
 def mueve(origen:str, destino:str):
